@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        width: 400px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+        font-size: 14px;
+        outline: none;
+        transition: 0.3s;
+      }
+
+      input:focus {
+        border-color: #2a5298;
+        box-shadow: 0 0 5px rgba(42, 82, 152, 0.4);
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        background: #2a5298;
+        color: white;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #1e3c72;
+      }
+
+      #display {
+        margin-top: 20px;
+      }
+
+      .card {
+        background: #f4f6f9;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .card p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #444;
+      }
+
+      .card p:first-child {
+        font-weight: bold;
+        font-size: 16px;
+        color: #2a5298;
+      }
+    </style>
+
+    <div class="container">
+      <h1>SEARCH FOR A STATE TO GET THE LATITUDE AND LONGTITUDE</h1>
+      <input type="text" id="cityInput" placeholder="Enter a city" />
+      <button type="button" onclick="fetchUsers()">Search</button>
+      <div id="display"></div>
+    </div>
+
+    <script>
+      let cityInput = document.getElementById("cityInput");
+      const fetchUsers = async () => {
+        cityValue = cityInput.value;
+        const response = await fetch(
+          `http://api.openweathermap.org/geo/1.0/direct?q=${cityValue}&limit=1&appid=b3e7f5768f31cf0f845d4fb4a8013774`,
+        );
+        const data = await response.json();
+        displayUsers(data);
+
+        console.log(data);
+      };
+
+      const displayUsers = (data) => {
+        let show = "";
+        data.map((user) => {
+          show += `
+            <div class="card">
+              
+              <p class="price">${user.name}</p>
+              <p class="category">${user.lat}</p>
+              <p class="price">${user.lon}</p>
+              <p class="category">${user.country}</p>
+            </div>
+          `;
+        });
+
+        document.getElementById("display").innerHTML = show;
+      };
+
+      fetchUsers();
+    </script>
+  </body>
+</html>

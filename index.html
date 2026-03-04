@@ -106,7 +106,7 @@
       const fetchUsers = async () => {
         cityValue = cityInput.value;
         const response = await fetch(
-          `http://api.openweathermap.org/geo/1.0/direct?q=${cityValue}&limit=1&appid=b3e7f5768f31cf0f845d4fb4a8013774`,
+          `https://api.openweathermap.org/geo/1.0/direct?q=${cityValue}&limit=1&appid=b3e7f5768f31cf0f845d4fb4a8013774`,
         );
         const data = await response.json();
         displayUsers(data);
